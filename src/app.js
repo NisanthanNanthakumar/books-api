@@ -30,16 +30,27 @@ app.get("/books/:isbn", (req, res) => {
 
     for (let i = parseInt(includeRelated, 10); i > 0; i--) {
       let ISBN = related.length ? related[related.length - 1].isbn : isbn;
-      let relatedBook = BOOKS_RELATED.find(obj => obj.isbn === ISBN);
+
+      let relatedBook = BOOKS_RELATED.find(obj => {
+        if (parseInt(includeRelated, 10) > 1 && existing.length > 1) {
+          console.log(existing.filter(book => book.isbn === obj.relatedIsbn));
+          return (
+            obj.isbn === ISBN &&
+            existing.filter(book => book.isbn === obj.relatedIsbn).length === 0
+          );
+        }
+        return obj.isbn === ISBN;
+      });
       console.log({ ISBN, existing, relatedBook });
-      let populatedBook = BOOKS.find(
+      let populatedBook = relatedBook ? BOOKS.find(
         book => book.isbn === relatedBook.relatedIsbn
-      );
+      ) : {};
       let result = { ...populatedBook };
       if (parseInt(includeAuthor, 10) === 1) {
         result.author = findAuthor(result.isbn);
       }
       related.push(result);
+      existing.push(result);
     }
     final.related = related;
   }
