@@ -1,0 +1,21 @@
+{
+  "name": "js-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "PORT=3001 ./node_modules/mocha/bin/mocha test",
+    "start": "node_modules/nodemon/bin/nodemon.js index.js",
+    "pretest": "npm install"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mocha": "^6.0.2",
+    "mocha-junit-reporter": "^1.22.0",
+    "mocha-multi-reporters": "^1.1.7",
+    "nodemon": "^1.18.11",
+    "supertest": "^4.0.2"
+  }
+}
