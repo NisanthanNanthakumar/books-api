@@ -11,6 +11,17 @@ const findAuthor = isbn => {
 
   return author ? author : {};
 };
+
+const findNewRelatedBooks = (ISBN, existing) => {
+  let related = BOOKS_RELATED.filter(obj => obj.isbn === ISBN).filter(
+    book => existing.find(({ isbn }) => isbn === book.relatedIsbn) === undefined
+  );
+  let populated = related.map(obj =>
+    BOOKS.find(book => book.isbn === obj.relatedIsbn)
+  );
+  return populated;
+};
+
 app.get("/books/:isbn", (req, res) => {
   const { includeAuthor, includeRelated } = req.query;
   const { isbn } = req.params;
@@ -19,8 +30,8 @@ app.get("/books/:isbn", (req, res) => {
   if (!book) {
     return res.status(404).json({});
   }
-  console.log(req.query);
   let final = { ...book };
+
   if (parseInt(includeAuthor, 10) === 1) {
     final.author = findAuthor(isbn);
   }
@@ -30,39 +41,20 @@ app.get("/books/:isbn", (req, res) => {
 
     for (let i = parseInt(includeRelated, 10); i > 0; i--) {
       let ISBN = related.length ? related[related.length - 1].isbn : isbn;
+      let newRelatedBooks = findNewRelatedBooks(ISBN, existing);
 
-      let relatedBook = BOOKS_RELATED.find(obj => {
-        if (parseInt(includeRelated, 10) > 1 && existing.length > 1) {
-          console.log(existing.filter(book => book.isbn === obj.relatedIsbn));
-          return (
-            obj.isbn === ISBN &&
-            existing.filter(book => book.isbn === obj.relatedIsbn).length === 0
-          );
-        }
-        return obj.isbn === ISBN;
-      });
-      console.log({ ISBN, existing, relatedBook });
-      let populatedBook = relatedBook ? BOOKS.find(
-        book => book.isbn === relatedBook.relatedIsbn
-      ) : {};
-      let result = { ...populatedBook };
       if (parseInt(includeAuthor, 10) === 1) {
-        result.author = findAuthor(result.isbn);
+        newRelatedBooks = newRelatedBooks.map(book => ({
+          ...book,
+          author: findAuthor(book.isbn)
+        }));
       }
-      related.push(result);
-      existing.push(result);
+      related.push(...newRelatedBooks);
+      existing.push(...newRelatedBooks);
     }
     final.related = related;
   }
 
-  // TODO: implement me
-
-  // Express tips:
-  // req.params => named route parameters
-  //    e.g.req.params.isbn
-  //
-  // req.query => request query string (object)
-  //    e.g. req.query.includeAuthor
   res.status(200).json(final);
 });
 
