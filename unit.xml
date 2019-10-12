@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="0.038" tests="8" failures="2">
+  <testsuite name="Root Suite" timestamp="2019-10-12T21:12:45" tests="0" failures="0" time="0">
+  </testsuite>
+  <testsuite name="books server" timestamp="2019-10-12T21:12:45" tests="0" file="/Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/test/test.js" failures="0" time="0">
+  </testsuite>
+  <testsuite name="/books/:isbn" timestamp="2019-10-12T21:12:45" tests="2" file="/Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/test/test.js" failures="0" time="0.024999999999999998">
+    <testcase name="books server /books/:isbn returns the book matching the given isbn" time="0.022" classname="returns the book matching the given isbn">
+    </testcase>
+    <testcase name="books server /books/:isbn returns 404 if the isbn is not found" time="0.003" classname="returns 404 if the isbn is not found">
+    </testcase>
+  </testsuite>
+  <testsuite name="includeAuthor" timestamp="2019-10-12T21:12:45" tests="2" file="/Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/test/test.js" failures="0" time="0.004">
+    <testcase name="books server /books/:isbn includeAuthor returns a book with author information present" time="0.003" classname="returns a book with author information present">
+    </testcase>
+    <testcase name="books server /books/:isbn includeAuthor returns a book with author information absent" time="0.001" classname="returns a book with author information absent">
+    </testcase>
+  </testsuite>
+  <testsuite name="includeRelated" timestamp="2019-10-12T21:12:45" tests="3" file="/Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/test/test.js" failures="2" time="0.007">
+    <testcase name="books server /books/:isbn includeRelated returns a book with 1-level of related books present" time="0.002" classname="returns a book with 1-level of related books present">
+    </testcase>
+    <testcase name="books server /books/:isbn includeRelated returns a book with 2-levels of related books present (case 1/2)" time="0.003" classname="returns a book with 2-levels of related books present (case 1/2)">
+      <failure message="expected {
+  title: &apos;A Fine Balance&apos;,
+  isbn: &apos;140003065X&apos;,
+  related: [
+    { isbn: &apos;0061624268&apos;, title: &apos;Microserfs&apos; },
+    { isbn: &apos;031205436X&apos;, title: &apos;Generation X&apos; }
+  ]
+} response body, got {
+  isbn: &apos;140003065X&apos;,
+  title: &apos;A Fine Balance&apos;,
+  related: [
+    { isbn: &apos;0061624268&apos;, title: &apos;Microserfs&apos; },
+    { isbn: &apos;140003065X&apos;, title: &apos;A Fine Balance&apos; }
+  ]
+}" type="Error"><![CDATA[Error: expected {
+  title: 'A Fine Balance',
+  isbn: '140003065X',
+  related: [
+    { isbn: '0061624268', title: 'Microserfs' },
+    { isbn: '031205436X', title: 'Generation X' }
+  ]
+} response body, got {
+  isbn: '140003065X',
+  title: 'A Fine Balance',
+  related: [
+    { isbn: '0061624268', title: 'Microserfs' },
+    { isbn: '140003065X', title: 'A Fine Balance' }
+  ]
+}
+    at error (node_modules/supertest/lib/test.js:301:13)
+    at Test._assertBody (node_modules/supertest/lib/test.js:205:14)
+    at Test._assertFunction (node_modules/supertest/lib/test.js:283:11)
+    at Test.assert (node_modules/supertest/lib/test.js:173:18)
+    at localAssert (node_modules/supertest/lib/test.js:131:12)
+    at /Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/node_modules/supertest/lib/test.js:128:5
+    at Test.Request.callback (node_modules/superagent/lib/node/index.js:716:12)
+    at /Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/node_modules/superagent/lib/node/index.js:916:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:19:7)
+    at endReadableNT (_stream_readable.js:1178:12)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11)]]></failure>
+    </testcase>
+    <testcase name="books server /books/:isbn includeRelated returns a book with 2-levels of related books present (case 2/2)" time="0.002" classname="returns a book with 2-levels of related books present (case 2/2)">
+      <failure message="expected {
+  title: &apos;Microserfs&apos;,
+  isbn: &apos;0061624268&apos;,
+  related: [
+    { isbn: &apos;140003065X&apos;, title: &apos;A Fine Balance&apos; },
+    { isbn: &apos;031205436X&apos;, title: &apos;Generation X&apos; },
+    { isbn: &apos;1503214133&apos;, title: &apos;Anne of Green Gables&apos; }
+  ]
+} response body, got {
+  isbn: &apos;0061624268&apos;,
+  title: &apos;Microserfs&apos;,
+  related: [
+    { isbn: &apos;140003065X&apos;, title: &apos;A Fine Balance&apos; },
+    { isbn: &apos;0061624268&apos;, title: &apos;Microserfs&apos; }
+  ]
+}" type="Error"><![CDATA[Error: expected {
+  title: 'Microserfs',
+  isbn: '0061624268',
+  related: [
+    { isbn: '140003065X', title: 'A Fine Balance' },
+    { isbn: '031205436X', title: 'Generation X' },
+    { isbn: '1503214133', title: 'Anne of Green Gables' }
+  ]
+} response body, got {
+  isbn: '0061624268',
+  title: 'Microserfs',
+  related: [
+    { isbn: '140003065X', title: 'A Fine Balance' },
+    { isbn: '0061624268', title: 'Microserfs' }
+  ]
+}
+    at error (node_modules/supertest/lib/test.js:301:13)
+    at Test._assertBody (node_modules/supertest/lib/test.js:205:14)
+    at Test._assertFunction (node_modules/supertest/lib/test.js:283:11)
+    at Test.assert (node_modules/supertest/lib/test.js:173:18)
+    at localAssert (node_modules/supertest/lib/test.js:131:12)
+    at /Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/node_modules/supertest/lib/test.js:128:5
+    at Test.Request.callback (node_modules/superagent/lib/node/index.js:716:12)
+    at /Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/node_modules/superagent/lib/node/index.js:916:18
+    at IncomingMessage.<anonymous> (node_modules/superagent/lib/node/parsers/json.js:19:7)
+    at endReadableNT (_stream_readable.js:1178:12)
+    at processTicksAndRejections (internal/process/task_queues.js:77:11)]]></failure>
+    </testcase>
+  </testsuite>
+  <testsuite name="includeRelated and includeAuthor" timestamp="2019-10-12T21:12:45" tests="1" file="/Users/nisanthannanthakumar/Documents/book-store-api-63tokobj0h5/test/test.js" failures="0" time="0.002">
+    <testcase name="books server /books/:isbn includeRelated and includeAuthor returns a book with 1-level of related books, including authors" time="0.002" classname="returns a book with 1-level of related books, including authors">
+    </testcase>
+  </testsuite>
+</testsuites>
