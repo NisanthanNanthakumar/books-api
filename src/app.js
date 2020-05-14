@@ -22,6 +22,10 @@ const findNewRelatedBooks = (ISBN, existing) => {
   return populated;
 };
 
+app.get("/books", (req,res) => {
+  res.send(BOOKS)
+})
+
 app.get("/books/:isbn", (req, res) => {
   const { includeAuthor, includeRelated } = req.query;
   const { isbn } = req.params;
@@ -57,5 +61,6 @@ app.get("/books/:isbn", (req, res) => {
 
   res.status(200).json(final);
 });
+
 
 module.exports = app;
