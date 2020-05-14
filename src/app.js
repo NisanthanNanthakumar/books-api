@@ -63,4 +63,8 @@ app.get("/books/:isbn", (req, res) => {
 });
 
 
+app.get("/health_status", (req,res) => {
+  res.send({message: "healthy"})
+})
+
 module.exports = app;
