@@ -4,7 +4,8 @@ const BOOKS = Object.freeze([
     Object.freeze({ isbn: "0061624268", title: "Microserfs" }),
     Object.freeze({ isbn: "031205436X", title: "Generation X" }),
     Object.freeze({ isbn: "0156027321", title: "Life of Pi" }),
-    Object.freeze({ isbn: "1503214133", title: "Anne of Green Gables" })
+    Object.freeze({ isbn: "1503214133", title: "Anne of Green Gables" }),
+    Object.freeze({ isbn: "3759275893", title: "Wolf of Wall Street" })
   ]);
   
 const AUTHORS = Object.freeze([
