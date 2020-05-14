@@ -64,6 +64,7 @@ app.get("/books/:isbn", (req, res) => {
 
 
 app.get("/health_status", (req,res) => {
+  console.log("ping")
   res.send({message: "healthy"})
 })
 
